@@ -7,13 +7,40 @@ public class Player : MonoBehaviour
 {
     [SerializeField] GameObject _muzzleFlash;
     [SerializeField] GameObject _hitMarkerPrefab;
+    [SerializeField] AudioSource _weaponAudio;
+    [SerializeField] int currentAmmo;
+    int maxAmmo = 30;
+    bool _isReloading = false;
+    float tiempodeRecarga = 1.5f;
 
     InputActionAsset _actionAsset = null;
+    private UIManager _uiManager;
+
+    public bool HasCoin { get; set; }
+
+    [SerializeField] GameObject _weapon;
+
+    public void EnableWeapon()
+    {
+        _weapon.SetActive(true);
+    }
+
+    //bool _coin;
+    //public bool GetCoin ()
+    //{ 
+    //    return _coin; 
+    //}
+    //public void SetCoin (bool value) 
+    //{ 
+    //    _coin = value; 
+    //}
 
     private void Awake()
     {
         _actionAsset = GetComponent<PlayerInput>().actions;
         _muzzleFlash.SetActive(false);
+        //HasCoin = true;
+        //SetCoin(true);
     }
 
     void Start()
@@ -25,9 +52,12 @@ public class Player : MonoBehaviour
         triggerPress.performed += OnTriggerPress;
         triggerPress.canceled += OnTriggerPress;
 
+        currentAmmo = maxAmmo;
+
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>(); 
     }
 
-    private void OnTriggerPress (InputAction.CallbackContext context)
+    private void OnTriggerPress(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -46,10 +76,17 @@ public class Player : MonoBehaviour
     /// </summary>
     private void PressTrigger()
     {
-        Debug.Log("Player::PressTrigger");
+        if (_weapon.activeSelf == false)
+            return;
+         
+        
+        //Debug.Log("Player::PressTrigger");
         _muzzleFlash.SetActive(true);
         //Attack();
         InvokeRepeating("Attack", 0, 0.1f);
+        //if (_weaponAudio.isPlaying == false)
+        _weaponAudio.Play();
+
     }
 
     /// <summary>
@@ -59,18 +96,25 @@ public class Player : MonoBehaviour
     {
         _muzzleFlash.SetActive(false);
         CancelInvoke("Attack");
+        _weaponAudio.Stop();
+        //_weaponAudio.loop = false;
     }
-    
 
-    
+
+
     void Update()
     {
-        
+        _uiManager.UpdateAmmo(currentAmmo);
     }
 
 
     public void Attack()
     {
+        if (currentAmmo <= 0)
+        {
+            ReleaseTrigger();
+            return;
+        }
         //Debug.Log("OnAttack");
         //Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
         //Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -80,10 +124,48 @@ public class Player : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            Debug.Log("Hit: " + hit.transform.gameObject.name);
+            //Debug.Log("Hit: " + hit.transform.gameObject.name);
             GameObject hitMarker = Instantiate(_hitMarkerPrefab, hit.point, Quaternion.LookRotation(hit.normal)); //Quaternion.identity);
             Destroy(hitMarker, 0.5f);
-        }
 
+        }
+        currentAmmo--;
     }
+
+    public void OnReload() 
+    {
+        if (_isReloading)
+            return;
+        
+        //currentAmmo = maxAmmo;
+        Debug.Log("1");
+        StartCoroutine(Reload());
+        Debug.Log("2");
+    }
+
+    IEnumerator Reload()
+    {
+        _isReloading = true;
+        ReleaseTrigger();
+        Debug.Log("3");
+        yield return new WaitForSeconds(tiempodeRecarga);
+        currentAmmo = maxAmmo;
+        Debug.Log("4");
+        _isReloading = false;
+        //PressTrigger();
+    }
+
+    public void OnUse()
+    {
+        //Debug.Log("OnUse");
+        GameManager.Singleton.isUseKey = true;
+        StartCoroutine(TeclaPulsada());
+    }
+
+    IEnumerator TeclaPulsada()
+    {
+        yield return new WaitForSeconds(0.1f);
+        GameManager.Singleton.isUseKey = false;
+    }
+
 }
