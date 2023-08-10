@@ -128,6 +128,12 @@ public class Player : MonoBehaviour
             GameObject hitMarker = Instantiate(_hitMarkerPrefab, hit.point, Quaternion.LookRotation(hit.normal)); //Quaternion.identity);
             Destroy(hitMarker, 0.5f);
 
+            Destructable item = hit.transform.GetComponent<Destructable>();
+            if (item != null)
+            {
+                item.DestroyItem();
+            }
+
         }
         currentAmmo--;
     }
