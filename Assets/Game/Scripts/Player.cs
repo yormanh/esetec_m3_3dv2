@@ -20,9 +20,17 @@ public class Player : MonoBehaviour
 
     [SerializeField] GameObject _weapon;
 
+    //[Header("Inventory Prefabs")]
+    //[SerializeField] GameObject coinPrefab;
+
     public void EnableWeapon()
     {
         _weapon.SetActive(true);
+    }
+
+    public bool GetWeapon()
+    {
+        return _weapon.activeSelf;
     }
 
     //bool _coin;
@@ -54,7 +62,15 @@ public class Player : MonoBehaviour
 
         currentAmmo = maxAmmo;
 
-        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>(); 
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+
+        Init();
+    }
+
+    void Init()
+    {
+        HasCoin = GameManager.Singleton.LoadGameCoin();
+        _weapon.SetActive(GameManager.Singleton.LoadGameWeapon());
     }
 
     private void OnTriggerPress(InputAction.CallbackContext context)
