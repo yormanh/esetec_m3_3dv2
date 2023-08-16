@@ -12,19 +12,36 @@ public class Inventory : MonoBehaviour
     
     void Start()
     {
+        Print();
+    }
+
+    void Print()
+    {
         foreach (Card card in cards)
         {
-            CardDisplay cardDisplay = new CardDisplay();
-            cardDisplay.SetCard(card);
-
-                                   
+            //CardDisplay cardDisplay = new CardDisplay();
+            //cardDisplay.SetCard(card);
 
             GameObject obj = Instantiate(cardCanvasPrefab);
             obj.transform.SetParent(rootCanvas.transform);
+            obj.GetComponent<CardDisplay>().SetCard(card);
         }
+
     }
 
-    
+
+    void AddEntry(Card card)
+    {
+        cards.Add(card);
+        Print();
+    }
+
+    void RemoveEntry(Card card)
+    {
+        cards.Remove(card);
+        Print();
+    }
+
     void Update()
     {
         
