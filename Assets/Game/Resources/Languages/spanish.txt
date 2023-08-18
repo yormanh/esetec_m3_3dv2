@@ -1,0 +1,7 @@
+Jugar@Jugar
+Creditos@Créditos
+Salir@Salir
+NuevaPartida@Nueva Partida
+LeerPartida@Leer Partida
+Ingles@Inglés
+Espanol@Español

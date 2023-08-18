@@ -72,16 +72,33 @@ public class Movimiento : MonoBehaviour
     //    Debug.Log("OnMove");
     //}
 
-    void OnMove(InputValue movementValue)
+    void OnMove1()
+    {
+        Debug.Log("OnMove1");
+    }
+    void OnMove2()
+    {
+        Debug.Log("OnMove2");
+    }
+
+
+    void OnMove1(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
         float movementX = movementVector.x;
         float movementY = movementVector.y;
 
-        Debug.Log(movementVector);
+        Debug.Log("Move1:" + movementVector);
     }
 
+    void OnMove2(InputValue movementValue)
+    {
+        Vector2 movementVector = movementValue.Get<Vector2>();
+        float movementX = movementVector.x;
+        float movementY = movementVector.y;
 
+        Debug.Log("Move2:" + movementVector);
+    }
 
     //public void OnMove(InputValue value)
     //{

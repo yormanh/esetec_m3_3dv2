@@ -50,15 +50,18 @@ public class Coin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bool hasCoin = GameManager.Singleton.LoadGameCoin();
-        if (hasCoin)
+        if (PlayerPrefs.GetInt("NuevaPartida", 0) == 0)
         {
-            UIManager uiManager = GameObject.Find("Canvas").
-                GetComponent<UIManager>();
-            if (uiManager)
-                uiManager.CollectedCoin();
-            Destroy(this.gameObject);
+            bool hasCoin = GameManager.Singleton.LoadGameCoin();
+            if (hasCoin)
+            {
+                UIManager uiManager = GameObject.Find("Canvas").
+                    GetComponent<UIManager>();
+                if (uiManager)
+                    uiManager.CollectedCoin();
+                Destroy(this.gameObject);
 
+            }
         }
 
     }

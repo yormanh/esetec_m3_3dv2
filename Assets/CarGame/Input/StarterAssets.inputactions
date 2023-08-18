@@ -6,7 +6,7 @@
             "id": "1a1fa9ca-1027-4dc4-b783-1136767d926f",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "Move1",
                     "type": "Value",
                     "id": "83fb3481-ec7e-4d01-864d-878170e429db",
                     "expectedControlType": "Vector2",
@@ -23,7 +23,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Move1",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -34,7 +34,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Move",
+                    "action": "Move1",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -45,7 +45,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Move",
+                    "action": "Move1",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -56,7 +56,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Move",
+                    "action": "Move1",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -67,20 +67,9 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Move",
+                    "action": "Move1",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "44725ffa-42fe-40bb-89e2-1c524b421bbd",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "StickDeadzone",
-                    "groups": "Gamepad",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -89,7 +78,7 @@
             "id": "f62a4b92-ef5e-4175-8f4c-c9075429d32c",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "Move2",
                     "type": "Value",
                     "id": "6bc1aaf4-b110-4ff7-891e-5b9fe6f32c4d",
                     "expectedControlType": "Vector2",
@@ -100,13 +89,13 @@
             ],
             "bindings": [
                 {
-                    "name": "WASD",
+                    "name": "UDLR",
                     "id": "b7594ddb-26c9-4ba2-bd5a-901468929edc",
                     "path": "2DVector(mode=1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Move2",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -117,7 +106,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Move",
+                    "action": "Move2",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -128,7 +117,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Move",
+                    "action": "Move2",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -139,7 +128,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Move",
+                    "action": "Move2",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -150,20 +139,9 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Move",
+                    "action": "Move2",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "e2f9aa65-db06-4c5b-a2e9-41bc8acb9517",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "StickDeadzone",
-                    "groups": "Gamepad",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         }

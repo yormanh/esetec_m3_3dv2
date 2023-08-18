@@ -23,6 +23,11 @@ public class Player : MonoBehaviour
     //[Header("Inventory Prefabs")]
     //[SerializeField] GameObject coinPrefab;
 
+    private Vector3 _initPositionPlayer;
+
+    [SerializeField] GameObject talkPrefab;
+    [SerializeField] GameObject canvasUI;
+
     public void EnableWeapon()
     {
         _weapon.SetActive(true);
@@ -64,13 +69,20 @@ public class Player : MonoBehaviour
 
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
 
-        Init();
+        _initPositionPlayer = this.transform.position;
+        if (PlayerPrefs.GetInt("NuevaPartida", 0) == 0) //false es cargar partida
+            Init();
     }
 
     void Init()
     {
         HasCoin = GameManager.Singleton.LoadGameCoin();
         _weapon.SetActive(GameManager.Singleton.LoadGameWeapon());
+    }
+
+    void InitPlayer()
+    {
+        this.transform.position = _initPositionPlayer;
     }
 
     private void OnTriggerPress(InputAction.CallbackContext context)
@@ -94,8 +106,10 @@ public class Player : MonoBehaviour
     {
         if (_weapon.activeSelf == false)
             return;
-         
-        
+
+        if (GameManager.Singleton.isFriend)
+            return;
+
         //Debug.Log("Player::PressTrigger");
         _muzzleFlash.SetActive(true);
         //Attack();
@@ -121,6 +135,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         _uiManager.UpdateAmmo(currentAmmo);
+
+        if (this.transform.position.y < -100)
+        {
+            InitPlayer();
+        }
     }
 
 
@@ -181,13 +200,32 @@ public class Player : MonoBehaviour
     {
         //Debug.Log("OnUse");
         GameManager.Singleton.isUseKey = true;
-        StartCoroutine(TeclaPulsada());
+        StartCoroutine(TeclaPulsada("Use"));
     }
 
-    IEnumerator TeclaPulsada()
+    IEnumerator TeclaPulsada(string tecla)
     {
         yield return new WaitForSeconds(0.1f);
-        GameManager.Singleton.isUseKey = false;
+        if (tecla=="Use")
+            GameManager.Singleton.isUseKey = false;
+        if (tecla == "Talk")
+            GameManager.Singleton.isTalkKey = false;
+
     }
+
+    public void OnTalk()
+    {
+        //Debug.Log("OnTalk");
+
+        if (GameManager.Singleton.isFriend)
+        {
+            Debug.Log("talk y amigo");
+            GameObject talk = Instantiate(talkPrefab, canvasUI.transform);
+            talk.transform.SetParent(canvasUI.transform);
+            Destroy(talk, 2f);
+        }
+
+    }
+
 
 }

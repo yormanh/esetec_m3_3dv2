@@ -1,0 +1,7 @@
+Jugar@Play
+Creditos@Credits
+Salir@Exit
+NuevaPartida@New Game
+LeerPartida@Load Game
+Ingles@English
+Espanol@Spanish

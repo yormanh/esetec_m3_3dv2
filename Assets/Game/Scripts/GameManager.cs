@@ -6,7 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Singleton;
 
-    public bool isUseKey { get;set; } //Tecla E
+    public bool isUseKey { get; set; } //Tecla E
+    public bool isFriend { get; set; }
+    public bool isTalkKey { get; set; } //Tecla E
 
     private void Awake()
     {
@@ -15,13 +17,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
-    
+
     void Update()
     {
-        
+
     }
 
     public void ResetGame()
